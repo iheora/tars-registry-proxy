@@ -7,7 +7,7 @@
 
 const TarsStream = require("@tars/stream");
 const registry = require('@tars/registry');
-const { DOMAIN, PORT } = require('../config/index');
+const { DOMAIN, PORT, REPORT_DOMAIN } = require('../config/index');
 
 const registryProxy = require("./QueryF.js").registryProxy;
 module.exports.registryProxy = registryProxy;
@@ -22,7 +22,7 @@ registryProxy.QueryFImp.prototype.findObjectById = async function (current, id) 
   const list = TarsStream.List(registryProxy.EndpointF);
 
   data.forEach(item => {
-    item.host = PORT;
+    item.host = REPORT_DOMAIN;
     list.push(item);
   });
 
