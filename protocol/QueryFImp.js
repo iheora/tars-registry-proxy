@@ -7,13 +7,13 @@
 
 const TarsStream = require("@tars/stream");
 const registry = require('@tars/registry');
-const { DOMAIN, PORT, REPORT_DOMAIN } = require('../config/index');
+const { SERVICE, DOMAIN, PORT, REPORT_DOMAIN } = require('../config/index');
 
 const registryProxy = require("./QueryF.js").registryProxy;
 module.exports.registryProxy = registryProxy;
 
 registryProxy.QueryFImp.prototype.initialize = function () {};
-registry.setLocator(`${tars.tarsregistry.QueryObj@tcp} -h ${DOMAIN} -p ${PORT}`);
+registry.setLocator(`${SERVICE} -h ${DOMAIN} -p ${PORT}`);
 
 registryProxy.QueryFImp.prototype.findObjectById = async function (current, id) {
   const result = await registry.findObjectById(id)
