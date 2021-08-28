@@ -13,8 +13,7 @@ registry.setLocator("service.TarsRegistryProxy.QueryObj@tcp -h 127.0.0.1 -p 4400
 
 registry.findObjectById("Hello.HelloRpcServer.TestObj")
   .then(res => {
-    console.log(res.response.return);
-    // console.log(res);
+    console.log(res.response.return.value);
   })
   .catch(err => {
     console.log(err)
