@@ -14,10 +14,10 @@ var TarsError  = require("@tars/rpc").error;
 
 var _hasOwnProperty = Object.prototype.hasOwnProperty;
 
-var tars = tars || {};
-module.exports.tars = tars;
+var registryProxy = registryProxy || {};
+module.exports.registryProxy = registryProxy;
 
-tars.EndpointF = function() {
+registryProxy.EndpointF = function() {
     this.host = "";
     this.port = 0;
     this.timeout = 0;
@@ -30,13 +30,13 @@ tars.EndpointF = function() {
     this.bakFlag = 0;
     this.weight = 0;
     this.weightType = 0;
-    this._classname = "tars.EndpointF";
+    this._classname = "registryProxy.EndpointF";
 };
-tars.EndpointF._classname = "tars.EndpointF";
-tars.EndpointF._write = function (os, tag, value) { os.writeStruct(tag, value); };
-tars.EndpointF._read  = function (is, tag, def) { return is.readStruct(tag, true, def); };
-tars.EndpointF._readFrom = function (is) {
-    var tmp = new tars.EndpointF;
+registryProxy.EndpointF._classname = "registryProxy.EndpointF";
+registryProxy.EndpointF._write = function (os, tag, value) { os.writeStruct(tag, value); };
+registryProxy.EndpointF._read  = function (is, tag, def) { return is.readStruct(tag, true, def); };
+registryProxy.EndpointF._readFrom = function (is) {
+    var tmp = new registryProxy.EndpointF;
     tmp.host = is.readString(0, true, "");
     tmp.port = is.readInt32(1, true, 0);
     tmp.timeout = is.readInt32(2, true, 0);
@@ -51,7 +51,7 @@ tars.EndpointF._readFrom = function (is) {
     tmp.weightType = is.readInt32(12, false, 0);
     return tmp;
 };
-tars.EndpointF.prototype._writeTo = function (os) {
+registryProxy.EndpointF.prototype._writeTo = function (os) {
     os.writeString(0, this.host);
     os.writeInt32(1, this.port);
     os.writeInt32(2, this.timeout);
@@ -65,16 +65,16 @@ tars.EndpointF.prototype._writeTo = function (os) {
     os.writeInt32(11, this.weight);
     os.writeInt32(12, this.weightType);
 };
-tars.EndpointF.prototype._equal = function () {
+registryProxy.EndpointF.prototype._equal = function () {
     assert.fail("this structure not define key operation");
 };
-tars.EndpointF.prototype._genKey = function () {
+registryProxy.EndpointF.prototype._genKey = function () {
     if (!this._proto_struct_name_) {
         this._proto_struct_name_ = "STRUCT" + Math.random();
     }
     return this._proto_struct_name_;
 };
-tars.EndpointF.prototype.toObject = function() { 
+registryProxy.EndpointF.prototype.toObject = function() { 
     return {
         "host" : this.host,
         "port" : this.port,
@@ -90,7 +90,7 @@ tars.EndpointF.prototype.toObject = function() {
         "weightType" : this.weightType
     };
 };
-tars.EndpointF.prototype.readFromObject = function(json) { 
+registryProxy.EndpointF.prototype.readFromObject = function(json) { 
     _hasOwnProperty.call(json, "host") && (this.host = json.host);
     _hasOwnProperty.call(json, "port") && (this.port = json.port);
     _hasOwnProperty.call(json, "timeout") && (this.timeout = json.timeout);
@@ -105,26 +105,26 @@ tars.EndpointF.prototype.readFromObject = function(json) {
     _hasOwnProperty.call(json, "weightType") && (this.weightType = json.weightType);
     return this;
 };
-tars.EndpointF.prototype.toBinBuffer = function () {
+registryProxy.EndpointF.prototype.toBinBuffer = function () {
     var os = new TarsStream.TarsOutputStream();
     this._writeTo(os);
     return os.getBinBuffer();
 };
-tars.EndpointF.new = function () {
-    return new tars.EndpointF();
+registryProxy.EndpointF.new = function () {
+    return new registryProxy.EndpointF();
 };
-tars.EndpointF.create = function (is) {
-    return tars.EndpointF._readFrom(is);
+registryProxy.EndpointF.create = function (is) {
+    return registryProxy.EndpointF._readFrom(is);
 };
 
-tars.QueryFImp = function () { 
+registryProxy.QueryFImp = function () { 
     this._name   = undefined;
     this._worker = undefined;
 };
 
-tars.QueryFImp.prototype.initialize = function () {};
+registryProxy.QueryFImp.prototype.initialize = function () {};
 
-tars.QueryFImp.prototype.onDispatch = function (current, funcName, binBuffer) { 
+registryProxy.QueryFImp.prototype.onDispatch = function (current, funcName, binBuffer) { 
     if ("__" + funcName in this) {
         return this["__" + funcName](current, binBuffer);
     } else {
@@ -132,7 +132,7 @@ tars.QueryFImp.prototype.onDispatch = function (current, funcName, binBuffer) {
     }
 };
 
-var __tars_QueryF$tars_ping$RE = function (_ret) {
+var __registryProxy_QueryF$tars_ping$RE = function (_ret) {
     if (this.getRequestVersion() === TarsStream.Tup.TUP_SIMPLE || this.getRequestVersion() === TarsStream.Tup.TUP_COMPLEX) {
         var tup = new TarsStream.UniAttribute();
         tup.tupVersion = this.getRequestVersion();
@@ -147,17 +147,17 @@ var __tars_QueryF$tars_ping$RE = function (_ret) {
     }
 };
 
-tars.QueryFImp.prototype.__tars_ping = function (current) {
-    __tars_QueryF$tars_ping$RE.call(current, 0);
+registryProxy.QueryFImp.prototype.__tars_ping = function (current) {
+    __registryProxy_QueryF$tars_ping$RE.call(current, 0);
 
     return TarsError.SUCCESS;
 };
 
-tars.QueryFImp.prototype.findObjectById = function () {
+registryProxy.QueryFImp.prototype.findObjectById = function () {
     assert.fail("findObjectById function not implemented");
 };
 
-var __tars_QueryF$findObjectById$RE = function (_ret) {
+var __registryProxy_QueryF$findObjectById$RE = function (_ret) {
     if (this.getRequestVersion() === TarsStream.Tup.TUP_SIMPLE || this.getRequestVersion() === TarsStream.Tup.TUP_COMPLEX) {
         var tup = new TarsStream.UniAttribute();
         tup.tupVersion = this.getRequestVersion();
@@ -171,13 +171,14 @@ var __tars_QueryF$findObjectById$RE = function (_ret) {
          this.doResponse(new TarsStream.BinBuffer(Buffer.from(JSON.stringify(_data_))));
     } else {
         var os = new TarsStream.TarsOutputStream();
+
         os.writeList(0, _ret);
 
         this.doResponse(os.getBinBuffer());
     }
 };
 
-tars.QueryFImp.prototype.__findObjectById = function (current, binBuffer) {
+registryProxy.QueryFImp.prototype.__findObjectById = function (current, binBuffer) {
     var id = null;
 
     if (current.getRequestVersion() === TarsStream.Tup.TUP_SIMPLE || current.getRequestVersion() === TarsStream.Tup.TUP_COMPLEX) {
@@ -193,7 +194,7 @@ tars.QueryFImp.prototype.__findObjectById = function (current, binBuffer) {
         id = is.readString(1, true, "");
     }
 
-    current.sendResponse = __tars_QueryF$findObjectById$RE;
+    current.sendResponse = __registryProxy_QueryF$findObjectById$RE;
 
     this.findObjectById(current, id);
 

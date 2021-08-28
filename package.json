@@ -22,12 +22,12 @@
     "@tars/rpc": "^2.0.11"
   },
   "tars": {
-    "tarsurl": "",
-    "token": "",
+    "tarsurl": "https://tars.yueluo.club",
+    "token": "d608d799e293c09066d01c1f0c220c3f962c2b5e",
     "platform": "linux",
     "app": "service",
     "service": "TarsRegistryProxy",
-    "obj": "Obj",
+    "obj": "QueryObj",
     "set": ""
   }
 }

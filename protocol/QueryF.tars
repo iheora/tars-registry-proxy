@@ -1,4 +1,4 @@
-module ttars
+module registryProxy
 {
   /**
     * 端口信息

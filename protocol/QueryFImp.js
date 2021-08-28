@@ -4,13 +4,15 @@ const TarsStream = require("@tars/stream");
 const TarsError = require("@tars/rpc").error;
 const registry = require('@tars/registry');
 
-const tars = require("./QueryF.js").tars;
-module.exports.tars = tars;
+const registryProxy = require("./QueryF.js").registryProxy;
+module.exports.registryProxy = registryProxy;
 
+registryProxy.QueryFImp.prototype.initialize = function () {};
 registry.setLocator("tars.tarsregistry.QueryObj@tcp -h 39.99.162.213 -p 17890");
 
-tars.QueryFImp.prototype.initialize = function () {};
+registryProxy.QueryFImp.prototype.findObjectById = async function (current, id) {
+  const result = await registry.findObjectById(id)
+  const data = result.response.return.value;
 
-tars.QueryFImp.prototype.findObjectById = function (current, id) {
-  return registry.findObjectById(current, id);
+  return current.sendResponse(data);
 };
