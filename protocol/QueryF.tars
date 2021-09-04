@@ -19,13 +19,22 @@ module registryProxy
   };
 
   /** 
-    * 获取对象endpoint的query接口
+    * 获取对象 endpoint 的 query 接口
     */
   interface QueryF {
-    /** 根据id获取对象
+    /** 根据 id 获取对象
       * @param id 对象名称
-      * @return  返回所有该对象的活动endpoint列表
+      * @return  返回所有该对象的活动 endpoint 列表
       */
     vector<EndpointF> findObjectById(string id);
+
+    /** 根据 id 获取对象同组 endpoint 列表
+      *
+      * @param id         对象名称
+      * @param activeEp   存活endpoint列表
+      * @param inactiveEp 非存活endpoint列表
+      * @return:  0-成功  others-失败
+      */
+    int findObjectByIdInSameGroup(string id, out vector<EndpointF> activeEp, out vector<EndpointF> inactiveEp);
   };
 };

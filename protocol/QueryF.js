@@ -171,7 +171,6 @@ var __registryProxy_QueryF$findObjectById$RE = function (_ret) {
          this.doResponse(new TarsStream.BinBuffer(Buffer.from(JSON.stringify(_data_))));
     } else {
         var os = new TarsStream.TarsOutputStream();
-
         os.writeList(0, _ret);
 
         this.doResponse(os.getBinBuffer());
@@ -197,6 +196,67 @@ registryProxy.QueryFImp.prototype.__findObjectById = function (current, binBuffe
     current.sendResponse = __registryProxy_QueryF$findObjectById$RE;
 
     this.findObjectById(current, id);
+
+    return TarsError.SUCCESS;
+};
+
+registryProxy.QueryFImp.prototype.findObjectByIdInSameGroup = function () {
+    assert.fail("findObjectByIdInSameGroup function not implemented");
+};
+
+var __registryProxy_QueryF$findObjectByIdInSameGroup$RE = function (_ret, activeEp, inactiveEp) {
+    if (this.getRequestVersion() === TarsStream.Tup.TUP_SIMPLE || this.getRequestVersion() === TarsStream.Tup.TUP_COMPLEX) {
+        var tup = new TarsStream.UniAttribute();
+        tup.tupVersion = this.getRequestVersion();
+        tup.writeInt32("", _ret);
+        tup.writeList("activeEp", activeEp);
+        tup.writeList("inactiveEp", inactiveEp);
+
+        this.doResponse(tup.encode());
+    } else if (this.getRequestVersion() === TarsStream.Tup.JSON_VERSION) {
+        var _data_ = {};
+        _data_["tars_ret"] = _ret;
+        _data_["activeEp"] = activeEp.toObject ? activeEp.toObject() : activeEp;
+        _data_["inactiveEp"] = inactiveEp.toObject ? inactiveEp.toObject() : inactiveEp;
+
+         this.doResponse(new TarsStream.BinBuffer(Buffer.from(JSON.stringify(_data_))));
+    } else {
+        var os = new TarsStream.TarsOutputStream();
+        os.writeInt32(0, _ret);
+        os.writeList(2, activeEp);
+        os.writeList(3, inactiveEp);
+
+        this.doResponse(os.getBinBuffer());
+    }
+};
+
+registryProxy.QueryFImp.prototype.__findObjectByIdInSameGroup = function (current, binBuffer) {
+    var id = null;
+    var activeEp = null;
+    var inactiveEp = null;
+
+    if (current.getRequestVersion() === TarsStream.Tup.TUP_SIMPLE || current.getRequestVersion() === TarsStream.Tup.TUP_COMPLEX) {
+        var tup = new TarsStream.UniAttribute();
+        tup.tupVersion = current.getRequestVersion();
+        tup.decode(binBuffer);
+        id = tup.readString("id");
+        activeEp = tup.readList("activeEp", TarsStream.List(registryProxy.EndpointF), new TarsStream.List(registryProxy.EndpointF));
+        inactiveEp = tup.readList("inactiveEp", TarsStream.List(registryProxy.EndpointF), new TarsStream.List(registryProxy.EndpointF));
+    } else if (current.getRequestVersion() === TarsStream.Tup.JSON_VERSION) {
+        var _data_ = JSON.parse(binBuffer.toNodeBuffer());
+        id = _data_.id;
+        activeEp = _data_.activeEp || new TarsStream.List(registryProxy.EndpointF);
+        inactiveEp = _data_.inactiveEp || new TarsStream.List(registryProxy.EndpointF);
+    } else {
+        var is = new TarsStream.TarsInputStream(binBuffer);
+        id = is.readString(1, true, "");
+        activeEp = is.readList(2, false, TarsStream.List(registryProxy.EndpointF));
+        inactiveEp = is.readList(3, false, TarsStream.List(registryProxy.EndpointF));
+    }
+
+    current.sendResponse = __registryProxy_QueryF$findObjectByIdInSameGroup$RE;
+
+    this.findObjectByIdInSameGroup(current, id, activeEp, inactiveEp);
 
     return TarsError.SUCCESS;
 };
