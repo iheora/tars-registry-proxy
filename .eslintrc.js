@@ -18,7 +18,7 @@ module.exports = {
         }
     },
     rules: {
-        semi:["error", "never"],
+        semi:["error", "always"],
         quotes:["error", "double"]
     }
 };
