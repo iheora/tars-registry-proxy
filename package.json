@@ -7,7 +7,7 @@
     "dev": "cross-env NODE_ENV=dev ./node_modules/.bin/nodemon app.js",
     "eslint": "./node_modules/.bin/eslint ./ --ext .js",
     "upload": "./node_modules/.bin/nodetools upload",
-    "start": "pm2 start app.js --name='tars-registry'"
+    "start": "pm2 start app.js --name=tars-registry"
   },
   "author": "",
   "license": "ISC",
